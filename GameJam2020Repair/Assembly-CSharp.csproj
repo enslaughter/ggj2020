@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\ConveyorBehavior.cs" />
     <Compile Include="Assets\Scripts\EndingHandler.cs" />
+    <Compile Include="Assets\Scripts\GameStateManager.cs" />
     <Compile Include="Assets\Scripts\JumpPad.cs" />
     <Compile Include="Assets\Scripts\LadderBehavior.cs" />
     <Compile Include="Assets\Scripts\MachineScript.cs" />

@@ -43,16 +43,21 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {     
-        HandleInputs();
-        HandleAnimation();
-        if(rb.velocity[0] > 0f)
+    {
+        if (GameStateManager.currentState == GameStateManager.GameState.GameRunning)
         {
-            sr.flipX = true;
-        }
-        else
-        {
-            sr.flipX = false;
+
+
+            HandleInputs();
+            HandleAnimation();
+            if (rb.velocity[0] > 0f)
+            {
+                sr.flipX = true;
+            }
+            else
+            {
+                sr.flipX = false;
+            }
         }
     }
 

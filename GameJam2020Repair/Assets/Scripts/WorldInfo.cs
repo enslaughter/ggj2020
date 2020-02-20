@@ -37,27 +37,32 @@ public class WorldInfo : MonoBehaviour
 
     void Update()
     {
-        //Set Global Level Countdown
-        timeLeft -= Time.deltaTime;
-        timeDisplay.SetText("Time Left:" + timeLeft.ToString("F0"));
-
-        currentPressure = RecalculatePressure();
-        currentTemperature = RecalculateTemperature();
-
-        pressureFactor = 100f * currentPressure / pressureLimit;
-        temperatureFactor = 100f * currentTemperature / tempLimit;
-
-        if(pressureFactor > 100f || temperatureFactor > 100f)
+        if (GameStateManager.currentState == GameStateManager.GameState.GameRunning)
         {
-            endManager.GetComponent<EndingHandler>().EndGame("GlobalBreak");
-        }
 
-        pressureGauge.SetText("Pressure Damage:    " + pressureFactor.ToString("F2") + " %");
-        tempGauge.SetText("Temperature Damage:    " + temperatureFactor.ToString("F2")+ " %");
 
-        if (timeLeft <= 0f)
-        {
-            endManager.GetComponent<EndingHandler>().EndGame("Victory");
+            //Set Global Level Countdown
+            timeLeft -= Time.deltaTime;
+            timeDisplay.SetText("Time Left:" + timeLeft.ToString("F0"));
+
+            currentPressure = RecalculatePressure();
+            currentTemperature = RecalculateTemperature();
+
+            pressureFactor = 100f * currentPressure / pressureLimit;
+            temperatureFactor = 100f * currentTemperature / tempLimit;
+
+            if (pressureFactor > 100f || temperatureFactor > 100f)
+            {
+                endManager.GetComponent<EndingHandler>().EndGame("GlobalBreak");
+            }
+
+            pressureGauge.SetText("Pressure Damage:    " + pressureFactor.ToString("F2") + " %");
+            tempGauge.SetText("Temperature Damage:    " + temperatureFactor.ToString("F2") + " %");
+
+            if (timeLeft <= 0f)
+            {
+                endManager.GetComponent<EndingHandler>().EndGame("Victory");
+            }
         }
     }
 
@@ -67,7 +72,6 @@ public class WorldInfo : MonoBehaviour
         for (int i = 0; i < machines.Length; i++)
         {
             cp +=  machines[i].GetComponent<MachineScript>().GetPressure();
-            //Debug.Log("CP = " + cp.ToString());
         }
 
         return cp;
@@ -80,7 +84,6 @@ public class WorldInfo : MonoBehaviour
         for (int i = 0; i < machines.Length; i++)
         {
             ct += machines[i].GetComponent<MachineScript>().GetTemp();
-            Debug.Log("CT =" + ct.ToString());
         }
 
         return ct;
